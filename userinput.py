@@ -28,7 +28,7 @@ while True:
                  inputdict['numtechplates'] = techx-450
                  inputdict['waterlev'] = waterx-800
                  inputdict['globtemp'] = tempx-1150
-                 print(inputdict)
+                 print(inputdict) #trigger movement to next step here
 
     displaysurface.fill((255,255,255))
 
