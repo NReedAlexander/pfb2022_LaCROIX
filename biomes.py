@@ -3,24 +3,44 @@ import sys
 import pandas as pd
 import numpy as np
 
+## Take in dictionary contaning: 1) dataframe filled w avg temp, 2) dataframe of rainfall amts, 
+##   3) dataframe of underwater True/False 4) dataframe of elevations
+
 #mainframe = sys.argv[1]
 
-testtemps = [[60, 60, 60, 60, 60], [60, 60, 60, 60, 60], [60, 60, 60, 60, 60], [60, 60, 60, 60, 60], [60, 60, 60, 60, 60]]
-testelevs = [[60, 60, 90, 60, 50], [90, 60, 10, 20, 60], [50, 60, 40, 30, 20], [10, 0, 50, 60, 70], [70, 90, 60, 30, 60]]
+# set thresholds for rainy/dry and mountain/lowlands
+rain_thresh = 50
+elev_thresh = 50
 
-tempdf = DataFrame(testtemps)
-elevdf = DataFrame(testelevs)
+# make test dataframes
+testrain = [[60, 60, 90, 60, 50], [90, 60, 10, 20, 60], [50, 60, 40, 30, 20], [10, 0, 50, 60, 70], [70, 90, 60, 30, 60]]
+testwater = [[True, False, False, False, False], [True, False, False, False, False], [True, False, False, False, False], [True, False, False, False, False], [True, False, False, False, False]] 
+testelev = [[100, 60, 60, 60, 30], [90, 50, 30, 20, 60], [80, 50, 40, 30, 0], [50, 80, 20, 20, 20], [80, 50, 20, 20, 50]]
+rain_df = pd.DataFrame(testrain)
+water_df = pd.DataFrame(testwater)
+elev_df = pd.DataFrame(testelev)
+print(f'water\n{water_df}')
+print(f'elevation\n{elev_df}')
+print(f'rain\n{rain_df}')
 
-elev_df = mainframe['Elev']
-nrows = elev_df.shape[0]
-lat_splits = np.linspace(0, nrows, num = 6)
-north_pole = [lat_splits[0], lat_splits[1]]
-north_temp = [lat_splits[1], lat_splits[2]]
-equator = [lat_splits[2], lat_splits[3]]
-south_temp = [lat_splits[3], lat_splits[4]]
-south_pole = [lat_splits[4], lat_splits[5]]
+# get dataframe dimensions
+nrows = rain_df.shape[0]
+ncols = rain_df.shape[1]
 
-avgtemp = mainframe['Temp'].loc[0,0]
+
+## SPLIT LATITUDE COORDINATES INTO FIVE ZONES ##
+lat_splits = np.linspace(0, nrows, num = 6) # requires rows to be divisible by 5
+zones = ['np', 'nt', 'eq', 'st', 'sp'] # north pole, north temperate, equator, south temperate, south pole
+zone_slices = {}
+for i in range(len(lat_splits)-1):
+    zone_slices[zones[i]] = [lat_splits[i], lat_splits[i+1]]
+    i += 1
+
+
+## CREATE LOOKUP TABLE OF TEMPS ##
+# assign hot, mid, or cold to each latitude zone based on average global temp
+avgtemp = int(sys.argv[1])
+#avgtemp = mainframe['Temp'].iloc[0,0]
 if avgtemp > 90:
     temp_zones = {'np':'hot', 'nt':'hot', 'eq':'hot', 'st':'hot', 'sp':'hot'}
 elif avgtemp > 70:
@@ -32,16 +52,53 @@ elif avgtemp > 30:
 else:
     temp_zones = {'np':'cold', 'nt':'cold', 'eq':'cold', 'st':'cold', 'sp':'cold'}
 
-water_df = mainframe['Water']
-nrows = water_df.shape[0]
-ncols = water_df.shape[1]
 
-temps = DataFrame()
-zone_keys = {north_pole:'np'
+## MAKE DATAFRAME OF TEMPERATURES ##
+temp_df = pd.DataFrame()
 for col in range(ncols):
-    for zone in [north_pole, north_temp, equator, south_temp, south_pole]:
-        for row in zone:
-            temps[row, col] = temp_zones[zone_keys[zone]]
+    # iterate through rows within latitude zones and set appropriate temps based on temp_zones LUT
+    for zone in zones:
+        for row in zone_slices[zone]:
+            temp_df.loc[row, col] = temp_zones[zone]
+temp_df = temp_df.iloc[:-1,:]
+print(temp_df)
 
+
+## MAKE DATAFRAME OF BIOME LABELS ##
+biome_df = pd.DataFrame()
+for col in range(ncols):
+    for row in range(nrows):
+        # save temp and rain level for each cell
+        temp = temp_df.loc[row,col]
+        rain = rain_df.loc[row,col]
+
+        # set biome as water for underwater cells, skip rest of loop
+        if water_df.loc[row,col] == True:
+            biome_df.loc[row,col] = 'water'
+            continue
+
+        # in mountain regions, make the temp one step cooler
+        if elev_df.loc[row,col] > elev_thresh:
+            if temp == 'hot':
+                temp = 'mid'
+            elif temp == 'mid':
+                temp = 'cold'
+
+        # set biome labels based rain levels and temps
+        if rain > rain_thresh:
+            if temp == 'hot':
+                biome_df.loc[row,col] = 'rain_forest'
+            elif temp == 'mid':
+                biome_df.loc[row,col] = 'temp_forest'
+            elif temp == 'cold':
+                biome_df.loc[row,col] = 'taiga'
+        else:
+            if temp == 'hot':
+                biome_df.loc[row,col] = 'desert'
+            elif temp == 'mid':
+                biome_df.loc[row,col] = 'grassland'
+            elif temp == 'cold':
+                biome_df.loc[row,col] = 'tundra'
+print(biome_df)
 
             
