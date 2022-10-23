@@ -6,6 +6,7 @@ import pandas as pd
 import sys, re 
 import random 
 import numpy as np 
+import IPython.display as display
 
 #create array of pandemic tables 
 
@@ -15,8 +16,7 @@ import numpy as np
 input_m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 mainframe = pd.DataFrame(input_m)
 tect_num = 30 
-n = 50 #size of array 
-print(mainframe)
+n = 100 #size of array 
 
 #create a cointoss for growth or shrink for later
 def cointoss (): 
@@ -97,7 +97,7 @@ for i in range(tectonic_plates.shape[0]):
 							valueD = value1 - random.randrange(10,250)
 							if valueD < 0: 
 								tectonic_plates = tectonic_plates.replace(value1, valueD)
-elevation_df = tectonic_plates
+elevation_df= tectonic_plates
 print(elevation_df) 	
 
 
