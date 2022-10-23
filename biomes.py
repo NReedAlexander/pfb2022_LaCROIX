@@ -11,18 +11,16 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
     # get dataframe dimensions
     nrows = rain_df.shape[0]
     ncols = rain_df.shape[1]
-
     # set thresholds
     rain_thresh = 50
     elev_thresh = elev_df.quantile(0.8).mean()
-    print(elev_thresh)
 
     ## SPLIT LATITUDE COORDINATES INTO FIVE ZONES ##
     lat_splits = np.linspace(0, nrows, num = 6) # requires rows to be divisible by 5
     zones = ['np', 'nt', 'eq', 'st', 'sp'] # north pole, north temperate, equator, south temperate, south pole
     zone_slices = {}
     for i in range(len(lat_splits)-1):
-        zone_slices[zones[i]] = [lat_splits[i], lat_splits[i+1]]
+        zone_slices[zones[i]] = range(int(lat_splits[i]), int(lat_splits[i+1]))
         i += 1
 
 
@@ -49,7 +47,6 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
         for zone in zones:
             for row in zone_slices[zone]:
                 temp_df.loc[row, col] = temp_zones[zone]
-    temp_df = temp_df.iloc[:-1,:]
 
 
     ## MAKE DATAFRAME OF BIOME LABELS ##
