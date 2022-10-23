@@ -16,10 +16,8 @@ while True:
             pygame.quit()
             sys.exit()
 
-    if gotdata == False:
-        inputdict, planetname = userinput.getuserinput()
-        print(planetname)
-        print(inputdict)
+    if gotdata == False: #this runs once
+        inputdict, planetname = userinput.getuserinput() #returns planetname, which is a string, and inputdict, which is a dictionary containing the user input with the following keys: 'globrain', 'numtechplates', 'waterlev', 'globtemp'
         gotdata = True
         pygame.display.set_caption(planetname+' in progress...')
 
