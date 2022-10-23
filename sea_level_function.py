@@ -28,7 +28,7 @@ def sea_level(elev_df,waterlev):
 
 # This works to show oceans
 
-    sea_lev_df = elev_norm_df.apply(lambda x: x -input_sea)          # Makes a sea level dataframe by taking the input sea level set by the user and substracting from the elevation dataframe. In the following steps if values are <0 then the coordinate is below sea level and the value is set to 0, if the value is >0 the coordinate is above sea level and the value of the coordinate is set to 1. 
+    sea_lev_df = elev_norm_df.apply(lambda x: x -waterlev)          # Makes a sea level dataframe by taking the input sea level set by the user and substracting from the elevation dataframe. In the following steps if values are <0 then the coordinate is below sea level and the value is set to 0, if the value is >0 the coordinate is above sea level and the value of the coordinate is set to 1. 
 #print(sea_lev_df)
 
     water_level = []                                             #Makes an empty list to store the water level values
