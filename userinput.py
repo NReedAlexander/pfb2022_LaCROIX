@@ -27,10 +27,10 @@ def getuserinput():
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    inputdict['globrain'] = rainx-100
-                    inputdict['numtechplates'] = techx-450
-                    inputdict['waterlev'] = waterx-800
-                    inputdict['globtemp'] = tempx-1150
+                    inputdict['globrain'] = (rainx-100)*(8/5)
+                    inputdict['numtechplates'] = int(((techx-450)*0.1)+5)
+                    inputdict['waterlev'] = (waterx-800)/250
+                    inputdict['globtemp'] = (tempx-1150)*(4/5)-100
                     return [inputdict, planetname] #trigger movement to next step here
                 elif nameactive:
                     if event.key == pygame.K_BACKSPACE:
@@ -96,13 +96,13 @@ def getuserinput():
         pygame.draw.rect(displaysurface, (0,0,0), temprect)
 
         raintext = basefont.render('Enter Average Global Rainfall', True, (0,0,0))
-        rainval = basefont.render(str(rainx-100)+' cm', True, (0,0,0))
-        techtext = basefont.render('Enter Number of Techtonic Plates', True, (0,0,0))
-        techval = basefont.render(str(techx-450)+' plates', True, (0,0,0))
+        rainval = basefont.render(f'{(rainx-100)*(8/5):.2f} cm', True, (0,0,0))
+        techtext = basefont.render('Enter Number of Tectonic Plates', True, (0,0,0))
+        techval = basefont.render(f'{int((((techx-450)*0.1)+5))} plates', True, (0,0,0))
         watertext = basefont.render('Enter Waterlevel', True, (0,0,0))
-        waterval = basefont.render(str(waterx-800), True, (0,0,0))
+        waterval = basefont.render(f'{(waterx-800)/250:.2f}', True, (0,0,0))
         temptext = basefont.render('Enter Average Global Temperature', True, (0,0,0))
-        tempval = basefont.render(str(tempx-1150)+' C', True, (0,0,0))
+        tempval = basefont.render(f'{(tempx-1150)*(4/5)-100:.2f} C', True, (0,0,0))
         entmess = basefont.render('Hit return to proceed', True, (0,0,0))
         displaysurface.blit(raintext, (100,150))
         displaysurface.blit(rainval, (150,300))
