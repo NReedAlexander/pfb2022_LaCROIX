@@ -1,7 +1,7 @@
 # pfb2022_LaCROIX
 A planet-building simulator
-## PLANETS ARE COOL
-![Planet](/planet.jpg)
+
+![LaCroix Logo](/CodingPlanetLogo.png)
 
 
 ## Final Presentation
