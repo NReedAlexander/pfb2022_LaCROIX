@@ -14,13 +14,13 @@ import numpy as np
 
 input_m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 mainframe = pd.DataFrame(input_m)
-tect_num = 5 
-n = 9 #size of array 
+tect_num = 30 
+n = 50 #size of array 
 print(mainframe)
 
 #create a cointoss for growth or shrink for later
 def cointoss (): 
-	return random.choice(['+', '-']) 
+	return random.choice(['0', '1']) 
 
 
 #error message if more tectonic plates than positions on array
@@ -36,16 +36,20 @@ for i in range(tectonic_plates.shape[0]):
 		for value in tectonic_plates: 
 			value = (random.randrange(1, tect_num+1))
 			tectonic_plates.at[i,j] = value
-print(tectonic_plates)
+#print(tectonic_plates)
 
 
 #sort the random matrix to create fewer tectonic plates 
 final_array = pd.DataFrame(index=range(n), columns=range(n))
 sort_list = list(range(n))
 for x in sort_list: 
-	sorted_array = tectonic_plates.sort_values(by=[x])
-	print(sorted_array,'\n')
-	final_array[x] = sorted_array[x].values
+	t = cointoss()
+	if t == '1': 
+		sorted_array = tectonic_plates.sort_values(by=[x])
+		final_array[x] = sorted_array[x].values
+	else: 
+		sorted_array = tectonic_plates.sort_values(by=[x], ascending=False) 
+		final_array[x] = sorted_array[x].values
 print(final_array)
 	
 #sort rows after columns 
@@ -60,15 +64,40 @@ print(final_array)
 tectonic_plates = final_array
 for i in range(tectonic_plates.shape[0]): 
 	for j in range(tectonic_plates.shape[1]):
-		if j+1 > n or i+1 > n:
+		value = tectonic_plates.at[i,j]
+		if j+1 > n-1 or i+1 > n-1:
 				next 
 		else:
 			value1 = tectonic_plates.at[i,j]
 			value2 = tectonic_plates.at[i+1,j]
 			value3 = tectonic_plates.at[i,j+1] 
 			for value in tectonic_plates: 
-				if value1 > value2:
-						value1 = value1 + random.randrange(1,250)
-print(tectonic_plates) 	
+				a = cointoss()
+				if value1 < value2:
+					if a  == '0':
+						valueR = value1 + random.randrange(1,20)
+						tectonic_plates = tectonic_plates.replace(value1, valueR)
+					else: 
+						valueD = value1 - random.randrange(1,20)
+						if valueD < 0: 
+							tectonic_plates = tectonic_plates.replace(value1, valueD)
+				elif value1 < value3: 
+						if a == '0': 
+							valueR = value1 + random.randrange(1,20)
+							tectonic_plates = tectonic_plates.replace(value1, valueR)
+						else: 
+							valueD = value1 - random.randrange(1,20)
+							if valueD < 0: 
+								tectonic_plates = tectonic_plates.replace(value1, valueD)
+				elif value2 > value3: 
+						if a == '0': 
+							valueR = value1 + random.randrange(10,250)
+							tectonic_plates = tectonic_plates.replace(value1, valueR)
+						else: 
+							valueD = value1 - random.randrange(10,250)
+							if valueD < 0: 
+								tectonic_plates = tectonic_plates.replace(value1, valueD)
+elevation_df = tectonic_plates
+print(elevation_df) 	
 
 
