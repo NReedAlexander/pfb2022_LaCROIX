@@ -5,7 +5,7 @@ import random as rand
 
 
 def initdataframe():
-    width = 50
+    width = 27
     height = 27
     longitude = []
 
