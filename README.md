@@ -1,7 +1,7 @@
 # pfb2022_LaCROIX
 A planet-building simulator
 
-![LaCroix Logo](/CodingPlanetLogo.png)
+![LaCroix Logo](/CodingPlanetsLogo.png)
 
 
 ## Final Presentation
