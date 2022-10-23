@@ -65,7 +65,7 @@ def sea_level(elev_df,waterlev):
                  temp_pos = (ix, iy)
                  loc_min.append(temp_pos)
 #                print('minimun') 
-#print(loc_min)
+#    print(loc_min)
 
     for coords in loc_min:
     #    print(coords)
