@@ -1,5 +1,5 @@
 # pfb2022_LaCROIX
-A command-line world building simulator
+A planet-building simulator
 ## PLANETS ARE COOL
 ![Planet](/planet.jpg)
 
