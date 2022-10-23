@@ -7,13 +7,7 @@ import numpy as np
 ##   3) dataframe of underwater True/False 4) dataframe of elevations
 
 
-def make_biome_df(mainframe):
-    # unpack dictionary of dataframes
-    rain_df = mainframe['rain']
-    temp_df = mainframe['temp']
-    elev_df = mainframe['elev']
-    water_df = mainframe['water']
-
+def make_biome_df(elev_df, water_df, rain_df, avgtemp):
     # get dataframe dimensions
     nrows = rain_df.shape[0]
     ncols = rain_df.shape[1]
@@ -34,7 +28,6 @@ def make_biome_df(mainframe):
 
     ## CREATE LOOKUP TABLE OF TEMPS ##
     # assign hot, mid, or cold to each latitude zone based on average global temp
-    avgtemp = temp_df.iloc[0,0]
     if avgtemp > 60:
         temp_zones = {'np':'hot', 'nt':'hot', 'eq':'hot', 'st':'hot', 'sp':'hot'}
     elif avgtemp > 30:
@@ -69,7 +62,7 @@ def make_biome_df(mainframe):
             rain = rain_df.loc[row,col]
 
             # set water biomes for underwater cells, skip rest of loop
-            if water_df.loc[row,col] == True:
+            if water_df.loc[row,col] == 0:
                 if (temp == 'hot' or temp == 'mid'):
                     biome_df.loc[row,col] = 'med_water'
                 elif temp == 'cold':
