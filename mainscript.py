@@ -44,7 +44,7 @@ while True:
         gotwater = True
 
     if gotbiomes == False:
-        biome_df = make_biome_df(elev_df, water_df, rain_df, inputdict['globtemp']) 
+        biome_df, temp_df = make_biome_df(elev_df, water_df, rain_df, inputdict['globtemp']) 
         gotbiomes = True
 
     pygame.display.flip()
