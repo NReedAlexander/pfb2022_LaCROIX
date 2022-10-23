@@ -5,7 +5,7 @@ import pygame, sys
 def getuserinput():
     pygame.init()
     displaysurface = pygame.display.set_mode(size=(1500, 800))
-    pygame.display.set_caption('User Input')
+    pygame.display.set_caption('La Croix')
     displaysurface.fill((255,255,255))
     basefont = pygame.font.Font(None, 28)
 
