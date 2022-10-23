@@ -22,10 +22,10 @@ while True:
         pygame.display.set_caption(planetname+' in progress...')
 
     ### other functions all go here ###
-    mainframe = randomize_rain(mainframe) # input is dict of dfs including df with key 'rain' filled with average global rain value
-    # tect plates --> elev here
-    # elev --> water here
-    mainframe = make_biome_df(mainframe) # input is dict of dfs including 'elev' df, 'water' df, 'rain' df, 'temp' df (just global average temp) 
+    rain_df = randomize_rain(inputdict['globrain'])
+    # tect plates --> elev here ( eg elev_df = get_elevation(inputdict['numtechplates']) )
+    # elev --> water here ( eg water_df = where_water(elev_df, inputdict['waterlev']) )
+    biome_df = make_biome_df(elev_df, water_df, rain_df, inputdict['globtemp']) 
     displaysurface.fill((255,0,0))#loading placeholder
     pygame.display.flip()
 
