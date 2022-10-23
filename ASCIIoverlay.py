@@ -10,7 +10,7 @@ pygame.init()
 displaysurface = pygame.display.set_mode(size=(displayx, displayy))
 pygame.display.set_caption('Planet Name')
 displaysurface.fill((255,255,255))
-basefont = pygame.font.Font(None, 28)
+basefont = pygame.font.SysFont('applesymbols', 28)
 
 testframe = dataframe.initdataframe()
 charframe = testframe['Underwater'].copy()
@@ -19,23 +19,23 @@ for h in charframe.iloc:
     posx=0
     for val in h:
         if val == True:
-            charframe.iat[posy, posx] = '~'
+            charframe.iat[posy, posx] = '‿'
         elif testframe['Elevation'].iat[posy, posx] >= 4.0:
-            charframe.iat[posy, posx] = 'Â'
+            charframe.iat[posy, posx] = '△'
         elif testframe['Biome'].iat[posy, posx] == 'Grassland':
             charframe.iat[posy, posx] = 'w'
         elif testframe['Biome'].iat[posy, posx] == 'Rainforest':
-            charframe.iat[posy, posx] = 'T'
+            charframe.iat[posy, posx] = '⟰'
         elif testframe['Biome'].iat[posy, posx] == 'Tundra':
             charframe.iat[posy, posx] = '='
         elif testframe['Biome'].iat[posy, posx] == 'Tundra Forest':
-            charframe.iat[posy, posx] = 't'
+            charframe.iat[posy, posx] = '⇈'
         elif testframe['Biome'].iat[posy, posx] == 'Taiga':
             charframe.iat[posy, posx] = '-'
         elif testframe['Biome'].iat[posy, posx] == 'Polar':
-            charframe.iat[posy, posx] = '.'
+            charframe.iat[posy, posx] = '*'
         else:
-            charframe.iat[posy, posx] = '!'
+            charframe.iat[posy, posx] = '∴'
         posx+=1
     posy+=1
 
