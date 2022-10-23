@@ -3,6 +3,8 @@
 import userinput, pygame, sys
 from biomes import *
 from random_rain import *
+from tectonic_generator import * 
+
 
 pygame.init()
 displaysurface = pygame.display.set_mode(size=(1500,800))
@@ -23,8 +25,12 @@ while True:
 
     ### other functions all go here ###
     rain_df = randomize_rain(inputdict['globrain'])
-    # tect plates --> elev here ( eg elev_df = get_elevation(inputdict['numtechplates']) )
-    # elev --> water here ( eg water_df = where_water(elev_df, inputdict['waterlev']) )
+    
+		# tect plates --> elev here ( eg elev_df = get_elevation(inputdict['numtechplates']) )
+ 		elev_df = elevation_generator(int(inputdict['numtechplates'])
+
+
+		# elev --> water here ( eg water_df = where_water(elev_df, inputdict['waterlev']) )
     biome_df = make_biome_df(elev_df, water_df, rain_df, inputdict['globtemp']) 
     displaysurface.fill((255,0,0))#loading placeholder
     pygame.display.flip()
