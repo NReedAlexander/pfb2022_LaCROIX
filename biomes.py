@@ -50,11 +50,11 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
             for row in zone_slices[zone]:
                 temp_df.loc[row, col] = temp_zones[zone]
     temp_df = temp_df.iloc[:-1,:]
-    print(temp_df)
 
 
     ## MAKE DATAFRAME OF BIOME LABELS ##
     biome_df = pd.DataFrame()
+    realtemp_df = pd.DataFrame()
     for col in range(ncols):
         for row in range(nrows):
             # save temp and rain level for each cell
@@ -65,10 +65,13 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
             if water_df.loc[row,col] == 0:
                 if (temp == 'hot' or temp == 'mid'):
                     biome_df.loc[row,col] = 'med_water'
+                    realtemp_df.loc[row,col] = 25
                 elif temp == 'cold':
                     biome_df.loc[row,col] = 'cold_water'
+                    realtemp_df.loc[row,col] = 10
                 else:
                     biome_df.loc[row,col] = 'frozen_water'
+                    realtemp_df.loc[row,col] = 0
                 continue
 
             # in mountain regions, make the temp one step cooler
@@ -80,41 +83,47 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
                 elif temp == 'cold':
                     temp = 'frozen'
 
-            # set biome labels based rain levels and temps
+            # set biome labels based rain levels and temps, populate realtemp df
             if rain > rain_thresh:
                 if temp == 'hot':
                     biome_df.loc[row,col] = 'rain_forest'
+                    realtemp_df.loc[row,col] = 30
                 elif temp == 'mid':
                     biome_df.loc[row,col] = 'temp_forest'
+                    realtemp_df.loc[row,col] = 15
                 elif temp == 'cold':
                     biome_df.loc[row,col] = 'taiga'
+                    realtemp_df.loc[row,col] = 0
                 elif temp == 'frozen':
                     biome_df.loc[row,col] = 'polar'
+                    realtemp_df.loc[row,col] = -50
             else:
                 if temp == 'hot':
                     biome_df.loc[row,col] = 'desert'
+                    realtemp_df.loc[row,col] = 50
                 elif temp == 'mid':
                     biome_df.loc[row,col] = 'grassland'
+                    realtemp_df.loc[row,col] = 20
                 elif temp == 'cold':
                     biome_df.loc[row,col] = 'tundra'
+                    realtemp_df.loc[row,col] = -15
                 elif temp == 'frozen':
                     biome_df.loc[row,col] = 'polar'
+                    realtemp_df.loc[row,col] = -30
 
-    mainframe['biomes'] = biome_df
-    return mainframe
+    return biome_df, realtemp_df
 
 def main():
     # make test dataframes
-    temp_df = pd.DataFrame(0, index=range(5), columns = range(5))
+    temp = 20
     rain_df = pd.DataFrame([[60, 60, 90, 60, 50], [90, 60, 10, 20, 60], [50, 60, 40, 30, 20], [10, 0, 50, 60, 70], [70, 90, 60, 30, 60]])
-    water_df = pd.DataFrame([[True, False, False, False, False], [True, False, False, False, False], [True, False, False, False, False], [True, False, False, False, False], [True, False, False, False, False]]) 
+    water_df = pd.DataFrame([[0,1,1,1,1],[0,1,1,1,1],[0,1,1,1,1],[0,1,1,1,1],[0,1,1,1,1]])
     elev_df = pd.DataFrame([[0, 60, 60, 60, 30], [0, 50, 30, 20, 60], [0, 50, 40, 30, 90], [0, 80, 20, 80, 20], [0, 50, 20, 20, 50]])
     print(f'water\n{water_df}')
     print(f'elevation\n{elev_df}')
     print(f'rain\n{rain_df}')
     
-    dfdict = {'rain':rain_df, 'water':water_df, 'elev':elev_df, 'temp':temp_df}
-    print(make_biome_df(dfdict)['biomes'])
+    print(make_biome_df(elev_df, water_df, rain_df, temp))
 
 if __name__ == '__main__':
     main()
