@@ -2,6 +2,7 @@
 import sys
 import pandas as pd
 import numpy as np
+import random
 
 ## Take in dictionary contaning: 1) dataframe filled w avg temp, 2) dataframe of rainfall amts, 
 ##   3) dataframe of underwater True/False 4) dataframe of elevations
@@ -47,7 +48,13 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
         for zone in zones:
             for row in zone_slices[zone]:
                 temp_df.loc[row, col] = temp_zones[zone]
-
+            if (zone == 'nt' or zone == 'st'):
+                pole_edge = zone_slices[zone][0:(len(zone_slices[zone])//5)]
+                eq_edge = zone_slices[zone][-(len(zone_slices[zone])//5):-1]
+                for edgerow in pole_edge:
+                    temp_df.loc[edgerow,col] = random.choice([temp_zones['np'],temp_zones['nt']])
+                for edgerow in eq_edge:
+                    temp_df.loc[edgerow,col] = random.choice([temp_zones['eq'],temp_zones['nt']])
 
     ## MAKE DATAFRAME OF BIOME LABELS ##
     biome_df = pd.DataFrame()
