@@ -11,7 +11,6 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
     pygame.init()
     displaysurface = pygame.display.set_mode(size=(displayx, displayy))
     pygame.display.set_caption('La Croix')
-    displaysurface.fill((255,255,255))
     basefont = pygame.font.SysFont('applesymbols', 10)
     textfont = pygame.font.SysFont('applesymbols', 28)
     logoimage = pygame.image.load('CodingPlanetsLogo.png')
@@ -52,7 +51,7 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
                 pygame.quit()
                 sys.exit()
 
-        displaysurface.fill((104,219,15))
+        displaysurface.fill((175,240,134))
 
         displayx = 800
         for column in range(int(displayy/8)):
