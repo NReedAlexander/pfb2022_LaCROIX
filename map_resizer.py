@@ -13,7 +13,7 @@ import sys
 def resize_map(input_array):
 
     scaling_factor = 8 
-    
+    input_array = np.array(input_array)
     larger_map = np.repeat(np.repeat(input_array, scaling_factor, axis = 1), scaling_factor, axis = 0)
 
     return larger_map
