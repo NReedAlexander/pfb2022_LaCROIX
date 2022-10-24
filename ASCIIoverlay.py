@@ -64,8 +64,6 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
             mousey = int((mousepos[1]/8))
             biomeval = biome_df.iat[mousey, mousex]
             biomeval = biomedisplaydict[biomeval]
-            if elev_df.iat[mousey, mousex] > elev_df.quantile(0.8).mean() and water_level_df.iat[mousey, mousex] != 0:
-                biomeval = 'Mountain'
             displaysurface.blit(textfont.render(f'Your biome is: {biomeval}', True, (0,0,0)), (1150, 300))
             rainval = rain_df.iat[mousey, mousex]
             displaysurface.blit(textfont.render(f'Average annual rainfall: {rainval:.2f} cm', True, (0,0,0)), (1150, 350))
