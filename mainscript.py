@@ -5,6 +5,9 @@ from biomes import *
 from random_rain import *
 from tectonic_generator import * 
 from sea_level_function import *
+from biome_to_color import *
+from map_resizer import *
+from arraytomap import *
 
 pygame.init()
 displaysurface = pygame.display.set_mode(size=(1500,800))
@@ -15,6 +18,9 @@ gotrain = False
 gotelev = False
 gotwater = False
 gotbiomes = False
+gotcolors = False 
+gotresize = False 
+gotmapsurf = False 
 
 while True:
     for event in pygame.event.get():
@@ -47,5 +53,17 @@ while True:
         biome_df, temp_df = make_biome_df(elev_df, water_df, rain_df, inputdict['globtemp']) 
         gotbiomes = True
 
+		if gotcolors = False: 
+				pixel_map = biome_colors(biome_df) 
+				gotcolors = True 
+
+		if gotresize = False: 
+				larger_map = resize_map(pixel_map) 
+				gotresize = True 
+
+		if gotmapsurf = False:
+				map_surface = draw_map(larger_map) 
+				gotmapsurf = True 
+				displaysurface.blit(map_surface, (750, 400))
     pygame.display.flip()
 
