@@ -48,14 +48,20 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
         for zone in zones:
             for row in zone_slices[zone]:
                 temp_df.loc[row, col] = temp_zones[zone]
-            if (zone == 'nt' or zone == 'st'):
+            if (zone == 'nt'):
                 pole_edge = zone_slices[zone][0:(len(zone_slices[zone])//5)]
                 eq_edge = zone_slices[zone][-(len(zone_slices[zone])//5):-1]
                 for edgerow in pole_edge:
                     temp_df.loc[edgerow,col] = random.choice([temp_zones['np'],temp_zones['nt']])
                 for edgerow in eq_edge:
                     temp_df.loc[edgerow,col] = random.choice([temp_zones['eq'],temp_zones['nt']])
-
+            if (zone == 'st'):
+                pole_edge = zone_slices[zone][-(len(zone_slices[zone])//5):-1]
+                eq_edge = zone_slices[zone][0:(len(zone_slices[zone])//5)]
+                for edgerow in pole_edge:
+                    temp_df.loc[edgerow,col] = random.choice([temp_zones['sp'],temp_zones['st']])
+                for edgerow in eq_edge:
+                    temp_df.loc[edgerow,col] = random.choice([temp_zones['eq'],temp_zones['st']])
 
     ## MAKE DATAFRAME OF BIOME LABELS ##
     biome_df = pd.DataFrame()
@@ -118,7 +124,7 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
  
             # set biome as coast if neighboring water (avoiding edge issues)
             if (row > 0 and col > 0 and row < nrows-1 and col < ncols-1):
-                if (water_df.loc[row+1,col]==0 or water_df.loc[row-1,col]==0 or water_df.loc[row,col+1]==0 or water_df.loc[row,col-1]==0 or water_df.loc[row+1,col+1]==0 or water_df.loc[row+1,col-1]==0 or water_df.loc[row-1,col+1]==0 or water_df.loc[row-1,col-1]==0):
+                if (biome_df.loc[row,col]!='polar' and water_df.loc[row+1,col]==0 or water_df.loc[row-1,col]==0 or water_df.loc[row,col+1]==0 or water_df.loc[row,col-1]==0 or water_df.loc[row+1,col+1]==0 or water_df.loc[row+1,col-1]==0 or water_df.loc[row-1,col+1]==0 or water_df.loc[row-1,col-1]==0):
                     biome_df.loc[row,col] = 'coast'                
 
     return biome_df, realtemp_df
