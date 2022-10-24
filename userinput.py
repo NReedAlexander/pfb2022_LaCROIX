@@ -6,7 +6,6 @@ def getuserinput():
     pygame.init()
     displaysurface = pygame.display.set_mode(size=(1500, 800))
     pygame.display.set_caption('La Croix')
-    displaysurface.fill((255,255,255))
     basefont = pygame.font.Font(None, 28)
 
     inputdict = {'globrain':0.0, 'numtechplates':0, 'waterlev':0.0, 'globtemp':0.0}
@@ -41,7 +40,7 @@ def getuserinput():
                     else:
                         planetname += event.unicode
 
-        displaysurface.fill((255,255,255))
+        displaysurface.fill((232,213,44))
 
         namerect = pygame.Rect(300, 700, 500, 30)
         pygame.draw.rect(displaysurface, (200,200,200), namerect)
