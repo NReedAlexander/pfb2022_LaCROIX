@@ -31,6 +31,9 @@ def getuserinput():
                     inputdict['numtechplates'] = int(((techx-450)*0.1)+5)
                     inputdict['waterlev'] = (waterx-800)/250
                     inputdict['globtemp'] = (tempx-1150)*(4/5)-100
+                    displaysurface.fill((43,227,221))
+                    displaysurface.blit(basefont.render(planetname+' is loading...', True, (0,0,0)), (700, 400))
+                    pygame.display.flip()
                     return [inputdict, planetname] #trigger movement to next step here
                 elif nameactive:
                     if event.key == pygame.K_BACKSPACE:
