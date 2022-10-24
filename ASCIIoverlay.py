@@ -3,7 +3,7 @@
 import pygame,sys
 import pandas as pd
 
-def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_level_df):
+def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_level_df, color_df):
 
     displayx = 1500 #these have to align with Reed's values
     displayy = 800 #these values, with a font size of 28, give a 50x27 grid
@@ -56,6 +56,8 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
         displayx = 800
         for column in range(int(displayy/8)):
             for row in range(int(displayx/8)):
+                    colorrect = pygame.Rect((row*8)+350,column*8,8,8)
+                    pygame.draw.rect(displaysurface, color_df.iat[column, row], colorrect)
                     displaysurface.blit(basefont.render(charframe.loc[column].at[row], True, (0,0,0)), ((row*8)+350,column*8))
 
         mousepos = pygame.mouse.get_pos()

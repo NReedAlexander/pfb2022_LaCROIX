@@ -81,10 +81,11 @@ while True:
 #can opening sound
         music = pygame.mixer.music.load(os.path.join(s, 'opening_soda_can.ogg'))
         pygame.mixer.music.play(1)
-         
-        overlayASCII(planetname, rain_df, elev_df, biome_dfcopy, temp_df, water_df) 
+        
+#        surface_map = draw_map(larger_map)
+#        displaysurface.blit(surface_map, (750, 400))
+        overlayASCII(planetname, rain_df, elev_df, biome_dfcopy, temp_df, water_df, biome_df) 
         gotmapsurf = True
-#        displaysurface.blit(map_surface, (750, 400))
 
     pygame.display.flip()
 
