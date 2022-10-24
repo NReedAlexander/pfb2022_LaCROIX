@@ -112,7 +112,7 @@ def getuserinput():
         displaysurface.blit(waterval, (850,300))
         displaysurface.blit(temptext, (1150,150))
         displaysurface.blit(tempval, (1250,300))
-        displaysurface.blit(entmess, (950, 700))
+        displaysurface.blit(entmess, (950, 705))
         welcometext = pygame.font.Font(None,40).render('Welcome to La Croix!', True, (0,0,0))
         displaysurface.blit(welcometext, (600,50))
 

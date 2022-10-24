@@ -15,6 +15,7 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
     basefont = pygame.font.SysFont('applesymbols', 10)
     textfont = pygame.font.SysFont('applesymbols', 28)
     logoimage = pygame.image.load('CodingPlanetsLogo.png')
+    logoimage = pygame.transform.scale(logoimage, (300,300))
     biomedisplaydict = {'grassland':'Grassland','rain_forest':'Rainforest','tundra':'Tundra','temp_forest':'Temperate Forest','taiga':'Taiga','polar':'Polar','desert':'Desert','med_water':'Warm Water','cold_water':'Cold Water','frozen_water':'Frozen Water'}
 
     charframe = biome_df.copy()
@@ -64,19 +65,19 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
             biomeval = biomedisplaydict[biomeval]
             if elev_df.iat[mousey, mousex] > elev_df.quantile(0.8).mean() and water_level_df.iat[mousey, mousex] != 0:
                 biomeval = 'Mountain'
-            displaysurface.blit(textfont.render(f'Your biome is: {biomeval}', True, (0,0,0)), (1150, 100))
+            displaysurface.blit(textfont.render(f'Your biome is: {biomeval}', True, (0,0,0)), (1150, 300))
             rainval = rain_df.iat[mousey, mousex]
-            displaysurface.blit(textfont.render(f'Average annual rainfall: {rainval:.2f} cm', True, (0,0,0)), (1150, 150))
+            displaysurface.blit(textfont.render(f'Average annual rainfall: {rainval:.2f} cm', True, (0,0,0)), (1150, 350))
             tempval = realtemp_df.iat[mousey, mousex]
-            displaysurface.blit(textfont.render(f'Average annual temp: {tempval:.2f} C', True, (0,0,0)), (1150, 200))
+            displaysurface.blit(textfont.render(f'Average annual temp: {tempval:.2f} C', True, (0,0,0)), (1150, 400))
             eleval = elev_df.iat[mousey, mousex]
             if water_level_df.iat[mousey, mousex] != 0:
                 eleval = eleval/50
             else:
                 eleval = (eleval/100)-1000
-            displaysurface.blit(textfont.render(f'Elevation: {eleval:.2f} m', True, (0,0,0)), (1150, 250))
-        displaysurface.blit(textfont.render(planetname, True, (0,0,0)), (50, 600))
-#        displaysurface.blit(logoimage, (50, 200))
+            displaysurface.blit(textfont.render(f'Elevation: {eleval:.2f} m', True, (0,0,0)), (1150, 450))
+        displaysurface.blit(textfont.render(planetname, True, (0,0,0)), (50, 575))
+        displaysurface.blit(logoimage, (25, 250))
 
         pygame.display.flip()
 
