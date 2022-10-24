@@ -37,7 +37,7 @@ import numpy as np
 
 
 
-def biome_colors(biome_df)
+def biome_colors(biomes_df):
 	for i in range(biomes_df.shape[0]):
 		for j in range(biomes_df.shape[1]): 
 			value1 = biomes_df.at[i,j]
@@ -85,9 +85,12 @@ def biome_colors(biome_df)
 #			print(my_tuple)
 
 #convert df to numpy array 
-	biomes_np1 = np.array(biomes_df)
+	pixel_map = np.array(biomes_df)
 #biomes_np2 = tuple(map(int, biomes_np1))
 #print(biomes_np1)
 	return pixel_map
 
-
+#print(type(biome_colors(test_df)))
+#print(type(biome_colors(test_df)[0][0]))
+#print(biome_colors(test_df)[0][0])
+#print(biome_colors(test_df))

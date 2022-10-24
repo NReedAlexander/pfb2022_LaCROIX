@@ -8,6 +8,7 @@ from sea_level_function import *
 from biome_to_color import *
 from map_resizer import *
 from arraytomap import *
+from ASCIIoverlay import *
 
 pygame.init()
 displaysurface = pygame.display.set_mode(size=(1500,800))
@@ -41,7 +42,7 @@ while True:
     
     # tect plates --> elev here ( eg elev_df = get_elevation(inputdict['numtechplates']) )
     if gotelev == False:
-    	elev_df = elevation_generator(int(inputdict['numtechplates'])
+        elev_df = elevation_generator(int(inputdict['numtechplates']))
         gotelev = True
 
 	# elev --> water here ( eg water_df = where_water(elev_df, inputdict['waterlev']) )
@@ -51,19 +52,21 @@ while True:
 
     if gotbiomes == False:
         biome_df, temp_df = make_biome_df(elev_df, water_df, rain_df, inputdict['globtemp']) 
+        biome_dfcopy = biome_df.copy()
         gotbiomes = True
 
-		if gotcolors = False: 
-				pixel_map = biome_colors(biome_df) 
-				gotcolors = True 
+    if gotcolors == False: 
+        pixel_map = biome_colors(biome_df) 
+        gotcolors = True 
 
-		if gotresize = False: 
-				larger_map = resize_map(pixel_map) 
-				gotresize = True 
+    if gotresize == False:
+        larger_map = resize_map(pixel_map) 
+        gotresize = True 
 
-		if gotmapsurf = False:
-				map_surface = draw_map(larger_map) 
-				gotmapsurf = True 
-				displaysurface.blit(map_surface, (750, 400))
+    if gotmapsurf == False:
+        overlayASCII(planetname, rain_df, elev_df, biome_dfcopy, temp_df, water_df) 
+        gotmapsurf = True
+#        displaysurface.blit(map_surface, (750, 400))
+
     pygame.display.flip()
 

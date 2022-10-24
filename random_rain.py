@@ -17,7 +17,7 @@ def randomize_rain(avg_rain):
         rand_col = random.randrange(0, ncols)
 
         # at the random seed, set the rain amount randomly around average +- average
-        rain_df.loc[rand_row, rand_col] = random.randrange(0, 2*avg_rain)
+        rain_df.loc[rand_row, rand_col] = random.randrange(0, 2*int(avg_rain))
 
         # spread the same value in a random radius with a max of half the number of seeds
         clust_spread = random.randrange(0, n_seeds//2)

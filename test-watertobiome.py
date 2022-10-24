@@ -4,6 +4,7 @@ import random
 from sea_level_function import *
 from biomes import *
 from random_rain import *
+import ASCIIoverlay
 
 pd.set_option('display.max_rows',100)
 
@@ -20,4 +21,5 @@ rain_df = randomize_rain(rain_val)
 water_df = sea_level(elev_df, water_level)
 biome_df, temp_df = make_biome_df(elev_df, water_df, rain_df, temp)
 
-print(biome_df) 
+ASCIIoverlay.overlayASCII('Test Planet', rain_df, elev_df, biome_df, temp_df, water_df)
+

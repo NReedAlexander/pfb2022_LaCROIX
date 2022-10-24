@@ -116,11 +116,12 @@ def main():
     rain_df = pd.DataFrame([[60, 60, 90, 60, 50], [90, 60, 10, 20, 60], [50, 60, 40, 30, 20], [10, 0, 50, 60, 70], [70, 90, 60, 30, 60]])
     water_df = pd.DataFrame([[0,1,1,1,1],[0,1,1,1,1],[0,1,1,1,1],[0,1,1,1,1],[0,1,1,1,1]])
     elev_df = pd.DataFrame([[0, 60, 60, 60, 30], [0, 50, 30, 20, 60], [0, 50, 40, 30, 90], [0, 80, 20, 80, 20], [0, 50, 20, 20, 50]])
-    print(f'water\n{water_df}')
-    print(f'elevation\n{elev_df}')
-    print(f'rain\n{rain_df}')
+#    print(f'water\n{water_df}')
+#    print(f'elevation\n{elev_df}')
+#    print(f'rain\n{rain_df}')
     
-    print(make_biome_df(elev_df, water_df, rain_df, temp))
+    biomesdf, temp = make_biome_df(elev_df, water_df, rain_df, temp)
+    print(biomesdf)   
 
 if __name__ == '__main__':
     main()
