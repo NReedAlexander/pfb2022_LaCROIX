@@ -10,10 +10,24 @@ from map_resizer import *
 from arraytomap import *
 from ASCIIoverlay import *
 
+#pygame music
+from pygame.locals import *
+from pygame import mixer
+#
+
+
 pygame.init()
 displaysurface = pygame.display.set_mode(size=(1500,800))
 pygame.display.set_caption('La Croix')
 pygame.display.flip()
+
+#start music script
+mixer.init()
+s = 'sound'
+music = pygame.mixer.music.load(os.path.join(s, 'ObservingTheStar.ogg'))
+pygame.mixer.music.play(-1)
+#end music script
+
 gotdata = False
 gotrain = False
 gotelev = False
@@ -64,6 +78,10 @@ while True:
         gotresize = True 
 
     if gotmapsurf == False:
+#can opening sound
+        music = pygame.mixer.music.load(os.path.join(s, 'opening_soda_can.ogg'))
+        pygame.mixer.music.play(1)
+         
         overlayASCII(planetname, rain_df, elev_df, biome_dfcopy, temp_df, water_df) 
         gotmapsurf = True
 #        displaysurface.blit(map_surface, (750, 400))

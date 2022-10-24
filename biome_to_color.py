@@ -72,7 +72,6 @@ def biome_colors(biomes_df):
  				biomes_df.loc[i].at[j] = (0,0,255)
 #				biomes_df = biomes_df.replace(to_replace=['med_water'], value='(0,0,255)')
 
-
 #print(biomes_df,'\n') 
 
 #convert string to touples
@@ -89,7 +88,6 @@ def biome_colors(biomes_df):
 #print(biomes_np1)
 	return pixel_map
 
-#print(type(biome_colors(test_df)))
-#print(type(biome_colors(test_df)[0][0]))
-#print(biome_colors(test_df)[0][0])
-#print(biome_colors(test_df))
+#a = biome_colors(test_df)
+#print(a)
+#print(a[0][2][0])

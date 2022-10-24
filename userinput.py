@@ -6,7 +6,6 @@ def getuserinput():
     pygame.init()
     displaysurface = pygame.display.set_mode(size=(1500, 800))
     pygame.display.set_caption('La Croix')
-    displaysurface.fill((255,255,255))
     basefont = pygame.font.Font(None, 28)
 
     inputdict = {'globrain':0.0, 'numtechplates':0, 'waterlev':0.0, 'globtemp':0.0}
@@ -26,11 +25,14 @@ def getuserinput():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
+                if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
                     inputdict['globrain'] = (rainx-100)*(8/5)
                     inputdict['numtechplates'] = int(((techx-450)*0.1)+5)
                     inputdict['waterlev'] = (waterx-800)/250
                     inputdict['globtemp'] = (tempx-1150)*(4/5)-100
+                    displaysurface.fill((43,227,221))
+                    displaysurface.blit(basefont.render(planetname+' is loading...', True, (0,0,0)), (700, 400))
+                    pygame.display.flip()
                     return [inputdict, planetname] #trigger movement to next step here
                 elif nameactive:
                     if event.key == pygame.K_BACKSPACE:
@@ -38,7 +40,7 @@ def getuserinput():
                     else:
                         planetname += event.unicode
 
-        displaysurface.fill((255,255,255))
+        displaysurface.fill((255,231,10))
 
         namerect = pygame.Rect(300, 700, 500, 30)
         pygame.draw.rect(displaysurface, (200,200,200), namerect)
@@ -112,7 +114,7 @@ def getuserinput():
         displaysurface.blit(waterval, (850,300))
         displaysurface.blit(temptext, (1150,150))
         displaysurface.blit(tempval, (1250,300))
-        displaysurface.blit(entmess, (950, 700))
+        displaysurface.blit(entmess, (950, 705))
         welcometext = pygame.font.Font(None,40).render('Welcome to La Croix!', True, (0,0,0))
         displaysurface.blit(welcometext, (600,50))
 
