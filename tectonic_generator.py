@@ -106,9 +106,9 @@ def elevation_generator(tect_num):
 	return (elevation_df) 
 
 #tect_num=15
-tectonic_plates = pd.DataFrame(index=range(n), columns=range(n))
-a = elevation_generator(tect_num) 
-print(a)
+#tectonic_plates = pd.DataFrame(index=range(n), columns=range(n))
+#a = elevation_generator(tect_num) 
+#print(a)
 
 #makes test data set so you can check if this works 
 #def main (): 
