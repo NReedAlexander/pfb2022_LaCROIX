@@ -32,8 +32,8 @@ while True:
     if gotdata == False: #this runs once
         inputdict, planetname = userinput.getuserinput() #returns planetname, which is a string, and inputdict, which is a dictionary containing the user input with the following keys: 'globrain', 'numtechplates', 'waterlev', 'globtemp'
         gotdata = True
-        pygame.display.set_caption(planetname+' in progress...')
-        displaysurface.fill((255,0,0))#loading placeholder
+#        pygame.display.set_caption(planetname+' in progress...')
+#        displaysurface.fill((255,0,0))#loading placeholder
 
     ### other functions all go here ###
     if gotrain == False:
