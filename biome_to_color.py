@@ -72,7 +72,8 @@ def biome_colors(biomes_df):
 				elif value1 == 'med_water':
  					biomes_df.loc[i].at[j] = (0,0,255)
 #					biomes_df = biomes_df.replace(to_replace=['med_water'], value='(0,0,255)')
-
+				elif value1 == 'coast': 
+					biomes_df.loc[i].at[j] = (245,222,179)
 
 #print(biomes_df,'\n') 
 
@@ -90,7 +91,6 @@ def biome_colors(biomes_df):
 #print(biomes_np1)
 	return pixel_map
 
-#print(type(biome_colors(test_df)))
-#print(type(biome_colors(test_df)[0][0]))
-#print(biome_colors(test_df)[0][0])
-#print(biome_colors(test_df))
+#a = biome_colors(test_df)
+#print(a)
+#print(a[0][2][0])

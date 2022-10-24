@@ -2,6 +2,7 @@
 import sys
 import pandas as pd
 import numpy as np
+import random
 
 ## Take in dictionary contaning: 1) dataframe filled w avg temp, 2) dataframe of rainfall amts, 
 ##   3) dataframe of underwater True/False 4) dataframe of elevations
@@ -47,6 +48,13 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
         for zone in zones:
             for row in zone_slices[zone]:
                 temp_df.loc[row, col] = temp_zones[zone]
+            if (zone == 'nt' or zone == 'st'):
+                pole_edge = zone_slices[zone][0:(len(zone_slices[zone])//5)]
+                eq_edge = zone_slices[zone][-(len(zone_slices[zone])//5):-1]
+                for edgerow in pole_edge:
+                    temp_df.loc[edgerow,col] = random.choice([temp_zones['np'],temp_zones['nt']])
+                for edgerow in eq_edge:
+                    temp_df.loc[edgerow,col] = random.choice([temp_zones['eq'],temp_zones['nt']])
 
 
     ## MAKE DATAFRAME OF BIOME LABELS ##
@@ -70,7 +78,7 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
                     biome_df.loc[row,col] = 'frozen_water'
                     realtemp_df.loc[row,col] = 0
                 continue
-
+           
             # in mountain regions, make the temp one step cooler
             if elev_df.loc[row,col] > elev_thresh:
                 if temp == 'hot':
@@ -107,6 +115,11 @@ def make_biome_df(elev_df, water_df, rain_df, avgtemp):
                 elif temp == 'frozen':
                     biome_df.loc[row,col] = 'polar'
                     realtemp_df.loc[row,col] = -30
+ 
+            # set biome as coast if neighboring water (avoiding edge issues)
+            if (row > 0 and col > 0 and row < nrows-1 and col < ncols-1):
+                if (water_df.loc[row+1,col]==0 or water_df.loc[row-1,col]==0 or water_df.loc[row,col+1]==0 or water_df.loc[row,col-1]==0 or water_df.loc[row+1,col+1]==0 or water_df.loc[row+1,col-1]==0 or water_df.loc[row-1,col+1]==0 or water_df.loc[row-1,col-1]==0):
+                    biome_df.loc[row,col] = 'coast'                
 
     return biome_df, realtemp_df
 
