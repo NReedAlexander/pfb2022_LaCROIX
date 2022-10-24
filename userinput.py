@@ -26,7 +26,7 @@ def getuserinput():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
+                if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
                     inputdict['globrain'] = (rainx-100)*(8/5)
                     inputdict['numtechplates'] = int(((techx-450)*0.1)+5)
                     inputdict['waterlev'] = (waterx-800)/250
