@@ -31,3 +31,4 @@ How do we maintain consistency?
 4. What does the user see versus what we see?
 5. What things do we care about the user seeing versus what we see behind the scenes?
 
+![Builtworld Screen](/gamescreen.png)
