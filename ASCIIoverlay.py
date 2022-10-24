@@ -12,7 +12,7 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
     displaysurface = pygame.display.set_mode(size=(displayx, displayy))
     pygame.display.set_caption('La Croix')
     basefont = pygame.font.SysFont('applesymbols', 10)
-    textfont = pygame.font.SysFont('applesymbols', 23)
+    textfont = pygame.font.SysFont('applesymbols', 25)
     logoimage = pygame.image.load('CodingPlanetsLogo.png')
     logoimage = pygame.transform.scale(logoimage, (300,300))
     biomedisplaydict = {'grassland':'Grassland','rain_forest':'Rainforest','tundra':'Tundra','temp_forest':'Temperate Forest','taiga':'Taiga','polar':'Polar','desert':'Desert','med_water':'Warm Water','cold_water':'Cold Water','frozen_water':'Frozen Water','coast':'Coast'}
