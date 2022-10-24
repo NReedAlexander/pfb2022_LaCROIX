@@ -40,7 +40,7 @@ def getuserinput():
                     else:
                         planetname += event.unicode
 
-        displaysurface.fill((232,213,44))
+        displaysurface.fill((255,231,10))
 
         namerect = pygame.Rect(300, 700, 500, 30)
         pygame.draw.rect(displaysurface, (200,200,200), namerect)
