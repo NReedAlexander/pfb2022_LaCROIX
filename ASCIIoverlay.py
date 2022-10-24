@@ -62,15 +62,15 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
             biomeval = biome_df.iat[mousey, mousex]
             if elev_df.iat[mousey, mousex] > elev_df.quantile(0.8).mean():
                 biomeval = 'Mountain'
-            if water_level_df.iat[mousey, mousex] == 0:
-                biomeval = 'Water'
+#            if water_level_df.iat[mousey, mousex] == 0:
+#                biomeval = 'Water'
             displaysurface.blit(textfont.render(f'Your biome is: {biomeval}', True, (0,0,0)), (1150, 100))
             rainval = rain_df.iat[mousey, mousex]
             displaysurface.blit(textfont.render(f'Average annual rainfall: {rainval} cm', True, (0,0,0)), (1150, 150))
             tempval = realtemp_df.iat[mousey, mousex]
             displaysurface.blit(textfont.render(f'Average annual temp: {tempval} C', True, (0,0,0)), (1150, 200))
             eleval = elev_df.iat[mousey, mousex]
-            displaysurface.blit(textfont.render(f'Elevation: {eleval} m', True, (0,0,0)), (1150, 250))
+            displaysurface.blit(textfont.render(f'Elevation: {(eleval/100)-500} m', True, (0,0,0)), (1150, 250))
         displaysurface.blit(textfont.render(planetname, True, (0,0,0)), (50, 600))
 #        displaysurface.blit(logoimage, (50, 200))
 
