@@ -5,7 +5,7 @@ import sys
 
 def draw_map(input_array):
 
-    col, row, chanels = input_array.shape
+#    col, row, chanels = input_array.shape
     map_surface = pygame.surfarray.make_surface(input_array)
     return(map_surface)
 

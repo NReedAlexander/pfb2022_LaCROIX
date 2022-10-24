@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 
+import numpy as np
 import pygame,sys
 import pandas as pd
 
-def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_level_df):
+def draw_map(input_array, planetname, rain_df, elev_df, biome_df, realtemp_df, water_level_df):
 
     displayx = 1500 #these have to align with Reed's values
     displayy = 800 #these values, with a font size of 28, give a 50x27 grid
+
+#    col, row, chanels = input_array.shape
+    map_surface = pygame.surfarray.make_surface(input_array)
 
     pygame.init()
     displaysurface = pygame.display.set_mode(size=(displayx, displayy))
@@ -49,6 +53,7 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
                 sys.exit()
 
         displaysurface.fill((255,255,255))
+        displaysurface.blit(map_surface, (750,400))
 
         displayx = 800
         for column in range(int(displayy/8)):
@@ -61,10 +66,14 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
             mousey = int((mousepos[1]/8))
             biomeval = biome_df.iat[mousey, mousex]
             if elev_df.iat[mousey, mousex] > elev_df.quantile(0.8).mean():
-                biomeval = 'Mountain'
+                biomeval = 'mountain'
             if water_level_df.iat[mousey, mousex] == 0:
-                biomeval = 'Water'
-            displaysurface.blit(textfont.render(f'Your biome is: {biomeval}', True, (0,0,0)), (1150, 100))
+                biomeval = 'water'
+            if biome_df.iat[mousey, mousex] == 'rain_forest':
+                biomeval = 'rainforest'
+            if biome_df.iat[mousey, mousex] == 'temp_forest':
+                biomeval = 'temperate forest'
+            displaysurface.blit(textfont.render('Your biome is: '+biomeval, True, (0,0,0)), (1150, 100))
             rainval = rain_df.iat[mousey, mousex]
             displaysurface.blit(textfont.render(f'Average annual rainfall: {rainval} cm', True, (0,0,0)), (1150, 150))
             tempval = realtemp_df.iat[mousey, mousex]
