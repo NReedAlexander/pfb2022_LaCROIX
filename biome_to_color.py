@@ -90,7 +90,6 @@ def biome_colors(biomes_df):
 #print(biomes_np1)
 	return pixel_map
 
-#print(type(biome_colors(test_df)))
-#print(type(biome_colors(test_df)[0][0]))
-#print(biome_colors(test_df)[0][0])
-#print(biome_colors(test_df))
+#a = biome_colors(test_df)
+#print(a)
+#print(a[0][2][0])
