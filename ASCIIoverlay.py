@@ -11,12 +11,11 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
     pygame.init()
     displaysurface = pygame.display.set_mode(size=(displayx, displayy))
     pygame.display.set_caption('La Croix')
-    displaysurface.fill((255,255,255))
     basefont = pygame.font.SysFont('applesymbols', 10)
     textfont = pygame.font.SysFont('applesymbols', 28)
     logoimage = pygame.image.load('CodingPlanetsLogo.png')
     logoimage = pygame.transform.scale(logoimage, (300,300))
-    biomedisplaydict = {'grassland':'Grassland','rain_forest':'Rainforest','tundra':'Tundra','temp_forest':'Temperate Forest','taiga':'Taiga','polar':'Polar','desert':'Desert','med_water':'Warm Water','cold_water':'Cold Water','frozen_water':'Frozen Water'}
+    biomedisplaydict = {'grassland':'Grassland','rain_forest':'Rainforest','tundra':'Tundra','temp_forest':'Temperate Forest','taiga':'Taiga','polar':'Polar','desert':'Desert','med_water':'Warm Water','cold_water':'Cold Water','frozen_water':'Frozen Water','coast':'Coast'}
 
     charframe = biome_df.copy()
     posy = 0
@@ -41,6 +40,8 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
                 charframe.iat[posy, posx] = '*'
             elif biome_df.iat[posy, posx] == 'desert':
                 charframe.iat[posy, posx] = '∴'
+            elif biome_df.iat[posy, posx] == 'coast':
+                charframe.iat[posy, posx] = '≈'
             posx+=1
         posy+=1
 
@@ -50,7 +51,7 @@ def overlayASCII(planetname, rain_df, elev_df, biome_df, realtemp_df, water_leve
                 pygame.quit()
                 sys.exit()
 
-        displaysurface.fill((255,255,255))
+        displaysurface.fill((175,240,134))
 
         displayx = 800
         for column in range(int(displayy/8)):
