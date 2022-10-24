@@ -12,6 +12,9 @@ def randomize_rain(avg_rain):
     n_seeds = int(nrows*seed_frac)
     rain_df = pd.DataFrame(avg_rain, index=range(nrows), columns=range(ncols))
     for seed in range(n_seeds):
+        # if rain ~0, keep it for whole map
+        if avg_rain < 2:
+            break
         # pick a random row and column
         rand_row = random.randrange(0, nrows)
         rand_col = random.randrange(0, ncols)
@@ -29,11 +32,8 @@ def randomize_rain(avg_rain):
     return rain_df
 
 def main():
-    nrows = 25
-    ncols = nrows
-    rain_in = pd.DataFrame(200, index=range(nrows), columns=range(ncols))
-    framedict = {'rain':rain_in}
-    print(randomize_rain(framedict)['rain'])
+    avg_rain = int(sys.argv[1]) 
+    print(randomize_rain(avg_rain))
 
 if __name__ == '__main__':
     main()
