@@ -1,4 +1,4 @@
-#tect_num!/usr/bin/env python3
+#!/usr/bin/env python3
 
 #Creating a world class that can be passed from one thing to next 
 
@@ -18,8 +18,8 @@ import numpy as np
 
 #input_m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 #mainframe = pd.DataFrame(input_m)
-#tect_num = 30 
-#n = 100 #size of array 
+tect_num = 30 
+n = 100 #size of array 
 
 #create a cointoss for growth or shrink for later
 def cointoss (): 
@@ -39,9 +39,8 @@ def elevation_generator(tect_num):
 	for i in range(tectonic_plates.shape[0]): 
 		for j in range(tectonic_plates.shape[1]):
 			value = tectonic_plates.at[i,j]
-			for value in tectonic_plates: 
-				value = (random.randrange(1, tect_num+1))
-				tectonic_plates.at[i,j] = value
+			value = (random.randrange(1, tect_num+1))
+			tectonic_plates.at[i,j] = value
 #print(tectonic_plates)
 
 
@@ -77,40 +76,39 @@ def elevation_generator(tect_num):
 				value1 = tectonic_plates.at[i,j]
 				value2 = tectonic_plates.at[i+1,j]
 				value3 = tectonic_plates.at[i,j+1] 
-				for value in tectonic_plates: 
-					a = cointoss()
-					if value1 < value2:
-						if a  == '0':
-							valueR = value1 + random.randrange(1,20)
-							tectonic_plates = tectonic_plates.replace(value1, valueR)
-						else: 
-							valueD = value1 - random.randrange(1,20)
-							if valueD < 0: 
-								tectonic_plates = tectonic_plates.replace(value1, valueD)
-					elif value1 < value3: 
-							if a == '0': 
-								valueR = value1 + random.randrange(1,20)
-								tectonic_plates = tectonic_plates.replace(value1, valueR)
-							else: 
-								valueD = value1 - random.randrange(1,20)
-								if valueD < 0: 
-									tectonic_plates = tectonic_plates.replace(value1, valueD)
-					elif value2 > value3: 
-							if a == '0': 
-								valueR = value1 + random.randrange(10,250)
-								tectonic_plates = tectonic_plates.replace(value1, valueR)
-							else: 
-								valueD = value1 - random.randrange(10,250)
-								if valueD < 0: 
-									tectonic_plates = tectonic_plates.replace(value1, valueD)
+				a = cointoss()
+				if value1 < value2:
+					if a  == '0':
+						valueR = value1 + random.randrange(1,20)
+						tectonic_plates = tectonic_plates.replace(value1, valueR)
+					else: 
+						valueD = value1 - random.randrange(1,20)
+						if valueD < 0: 
+							tectonic_plates = tectonic_plates.replace(value1, valueD)
+				elif value1 < value3: 
+					if a == '0': 
+						valueR = value1 + random.randrange(1,20)
+						tectonic_plates = tectonic_plates.replace(value1, valueR)
+					else: 
+						valueD = value1 - random.randrange(1,20)
+						if valueD < 0: 
+							tectonic_plates = tectonic_plates.replace(value1, valueD)
+				elif value2 > value3: 
+					if a == '0': 
+						valueR = value1 + random.randrange(10,200)
+						tectonic_plates = tectonic_plates.replace(value1, valueR)
+					else: 
+						valueD = value1 - random.randrange(10,200)
+						if valueD < 0: 
+							tectonic_plates = tectonic_plates.replace(value1, valueD)
 	elevation_df= tectonic_plates
 	#print(elevation_df) 	
 	return (elevation_df) 
 
 #tect_num=15
-#tectonic_plates = pd.DataFrame(index=range(n), columns=range(n))
-#a = elevation_generator(tect_num) 
-#print(a)
+tectonic_plates = pd.DataFrame(index=range(n), columns=range(n))
+a = elevation_generator(tect_num) 
+print(a)
 
 #makes test data set so you can check if this works 
 #def main (): 
