@@ -71,6 +71,9 @@ def biome_colors(biomes_df):
 			elif value1 == 'med_water':
  				biomes_df.loc[i].at[j] = (0,0,255)
 #				biomes_df = biomes_df.replace(to_replace=['med_water'], value='(0,0,255)')
+			elif value1 == 'coast': 
+				biomes_df.loc[i].at[j] = (255,215,0)
+
 
 #print(biomes_df,'\n') 
 
